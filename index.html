@@ -9,58 +9,101 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.7.2/alpine-ie11.js" integrity="sha512-j8ej8E2qeWh33mG2t9O8ajLBErUu3nLEav92Nea1pDZGpXVqCHhE03fcrc29xnuomEs7KSi9n9cHCTlYIfRD8w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
   <body>
-    <div>
 
-    </div>
-    <main class='mx-auto bg-white min-h-screen w-11/12'>
-      <div x-data="{text:'',baseValue:'',offsetValue:'',listP:[],listN:[]}">
-        
-          <div class='m-2 flex p-2 w-full gap-2 border-y border-slate-800'>
-            <input class='border w-full p-2 rounded' type="text" x-model='text'>
-            <button
-            @click="v1=Number(text);baseValue=v1/(50+10);
-            listP=[];listN=[];
-            let temp1=baseValue;
-            let temp2=baseValue;
-            offsetValue=v1/((40-4)*1000);
-            for(let indx=0;indx<12;indx++){
-              temp1=temp1+offsetValue;
-              temp2=temp2-offsetValue;
-              listP.push(temp1);
-              listN.push(temp2);
-            }
-            "
-            class="bg-blue-700 text-white p-2 w-40 hover:bg-blue-500 border rounded"
-          >Calculate</button>
+    
+    <main x-data="{tabIndx:1}" class='mx-auto bg-white min-h-screen w-11/12'>
+      <div>
+        <h1 class='bg-blue-700 text-white text-2xl my-2 p-2 font-bold text-center'>Simple Calculation</h1>
+        <div class='grid grid-cols-2 gap-2 py-2 border-y border-slate-800'>
+          <button @click="tabIndx=0" class='bg-blue-500 text-white p-2 hover:underline rounded'>Calculation 1</button>          
+          <button @click="tabIndx=1" class='bg-blue-500 text-white p-2 hover:underline rounded'>Calculation 2</button>
+        </div>
+      </div>
+      <div x-show='tabIndx==0'>
+        <div x-data="{text:'',baseValue:'',offsetValue:'',listP:[],listN:[]}">        
+            <div class='flex p-2 w-full gap-2 border-b border-slate-800'>
+              <input class='border w-full p-2 rounded' type="text" x-model='text'>
+              <button
+                @click="v1=Number(text);baseValue=v1/(50+10);
+                listP=[];listN=[];
+                let temp1=baseValue;
+                let temp2=baseValue;
+                offsetValue=v1/((40-4)*1000);
+                for(let indx=0;indx<12;indx++){
+                  temp1=temp1+offsetValue;
+                  temp2=temp2-offsetValue;
+                  listP.push(temp1);
+                  listN.push(temp2);
+                }
+                "
+                class="bg-blue-700 text-white p-2 w-40 hover:bg-blue-500 border rounded"
+              >Calculate</button>
+            </div>
+            <div class='my-2 bg-gray-100 border border-2 border-slate-500 p-2'>
+              <div class='m-2 bg-teal-500 text-white p-2 font-bold text-center rounded'>Base Value: <span x-text='baseValue'></span></div>
+              <div class='grid gap-2 grid-cols-2 p-1'>
+                <div class="bg-teal-500 text-white text-center p-2 rounded">
+                  <template x-for='record in listP'>
+                    <p x-text='record.toFixed(10)'></p>
+                  </template>
+                </div>              
+                <div class="bg-teal-500 text-white text-center p-2 rounded">
+                  <template x-for='record in listN'>
+                    <p x-text='record.toFixed(10)'></p>
+                  </template>
+                </div>          
+              </div>
+          
+          
           </div>
-
-
-
-
-          <div class='m-2 bg-slate-500 text-white p-2 font-bold text-center rounded'>Base Value: <span x-text='baseValue'></span></div>
+          <div class='my-2 bg-gray-100 border border-2 border-slate-500 p-2'>
+          <div class='m-2 bg-emerald-500 text-white p-2 font-bold text-center rounded'>Base Value: <span x-text='baseValue*(50+10)'></span></div>
           <div class='grid gap-2 grid-cols-2 p-1'>
-            <div class="bg-slate-500 text-white text-center p-2 rounded">
+            <div class="bg-emerald-500 text-white text-center p-2">
               <template x-for='record in listP'>
-                <p x-text='record.toFixed(10)'></p>
+                <p x-text='(record*(50+10)).toFixed(10)'></p>
               </template>
-            </div><div class="bg-slate-500 text-white text-center p-2 rounded">
+            </div><div class="bg-emerald-500 text-white text-centrr p-2">
               <template x-for='record in listN'>
-                <p x-text='record.toFixed(10)'></p>
+                <p x-text='(record*(50+10)).toFixed(10)'></p>
               </template>
             </div>          
+          </div>
         </div>
-        <div class='m-2 bg-blue-500 text-white p-2 font-bold text-center rounded'>Base Value: <span x-text='baseValue'></span></div>
-        <div class='grid gap-2 grid-cols-2 p-1'>
-          <div class="bg-blue-500 text-white text-center p-2">
-            <template x-for='record in listP'>
-              <p x-text='(record*(50+10)).toFixed(10)'></p>
-            </template>
-          </div><div class="bg-blue-500 text-white text-centrr p-2">
-            <template x-for='record in listN'>
-              <p x-text='(record*(50+10)).toFixed(10)'></p>
-            </template>
-          </div>          
+        </div>
       </div>
+      <div x-show='tabIndx==1'>
+        <div x-data="{aText:'',bText:'',aValue:0.0,bValue:0.0,listP:[],listN:[]}">
+          <div class='my-2 px-2 bg-gray-100 rounded'>
+            <input class='px-2 py-1 border border-slate-500 my-2 w-full rounded' x-model='aText' type="text">
+            <input class='px-2 py-1 border border-slate-500 my-2 w-full rounded' x-model='bText' type="text">
+            <button  @click="if(!aText || !bText)return;listP=[];listN=[];
+            aValue=Number(aText);bValue=Number(bText);
+            let v1=aValue+bValue;
+            listP.push((v1+aValue)/2.);
+            listN.push((v1-aValue)/2.)"
+            class='mb-2 bg-blue-700 text-white p-2 w-full hover:bg-blue-500 rounded'>Calculate</button>
+          </div>
+          <div x-show='aText && bText' class='text-center font-bold'>
+            <p>A=<span x-text='aText'></span>, B=<span x-text='bText'></span></p>
+          </div>
+          <div class='grid grid-cols-2 gap-2 p-2'>
+            <template x-if='listP.length>0'>
+              <div>
+                <template x-for='record in listP'>
+                  <p x-text='record'></p>
+                </template>
+              </div>
+            </template>
+            <template x-if='listN.length>0'>
+              <div>
+                <template x-for='record in listN'>
+                  <p x-text='record'></p>
+                </template>
+              </div>            
+            </template>
+          </div>
+        </div>
       </div>
     </main>
   </body>
