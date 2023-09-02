@@ -5,8 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Static Template</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.7.2/alpine-ie11.js" integrity="sha512-j8ej8E2qeWh33mG2t9O8ajLBErUu3nLEav92Nea1pDZGpXVqCHhE03fcrc29xnuomEs7KSi9n9cHCTlYIfRD8w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
   <body>
-    <h1>This is a static template, there is no bundler or bundling involved!</h1>
+    <div>
+
+    </div>
+    <main class='mx-auto bg-white min-h-screen w-11/12'>
+      <div x-data="{text:'',baseValue:'',offsetValue:'',listP:[],listN:[]}">
+        
+          <div class='m-2 flex p-2 w-full gap-2 border-y border-slate-800'>
+            <input class='border w-full p-2 rounded' type="text" x-model='text'>
+            <button
+            @click="v1=Number(text);baseValue=v1/(50+10);
+            listP=[];listN=[];
+            let temp1=baseValue;
+            let temp2=baseValue;
+            offsetValue=v1/((40-4)*1000);
+            for(let indx=0;indx<12;indx++){
+              temp1=temp1+offsetValue;
+              temp2=temp2-offsetValue;
+              listP.push(temp1);
+              listN.push(temp2);
+            }
+            "
+            class="bg-blue-700 text-white p-2 w-40 hover:bg-blue-500 border rounded"
+          >Calculate</button>
+          </div>
+
+
+
+
+          <div class='m-2 bg-slate-500 text-white p-2 font-bold text-center rounded'>Base Value: <span x-text='baseValue'></span></div>
+          <div class='grid gap-2 grid-cols-2 p-1'>
+            <div class="bg-slate-500 text-white text-center p-2 rounded">
+              <template x-for='record in listP'>
+                <p x-text='record.toFixed(10)'></p>
+              </template>
+            </div><div class="bg-slate-500 text-white text-center p-2 rounded">
+              <template x-for='record in listN'>
+                <p x-text='record.toFixed(10)'></p>
+              </template>
+            </div>          
+        </div>
+        <div class='m-2 bg-blue-500 text-white p-2 font-bold text-center rounded'>Base Value: <span x-text='baseValue'></span></div>
+        <div class='grid gap-2 grid-cols-2 p-1'>
+          <div class="bg-blue-500 text-white text-center p-2">
+            <template x-for='record in listP'>
+              <p x-text='(record*(50+10)).toFixed(10)'></p>
+            </template>
+          </div><div class="bg-blue-500 text-white text-centrr p-2">
+            <template x-for='record in listN'>
+              <p x-text='(record*(50+10)).toFixed(10)'></p>
+            </template>
+          </div>          
+      </div>
+      </div>
+    </main>
   </body>
 </html>
