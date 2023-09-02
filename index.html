@@ -21,8 +21,8 @@
       </div>
       <div x-show='tabIndx==0'>
         <div x-data="{text:'',baseValue:'',offsetValue:'',listP:[],listN:[]}">        
-            <div class='flex p-2 w-full gap-2 border-b border-slate-800'>
-              <input class='border w-full p-2 rounded' type="text" x-model='text'>
+            <div class='bg-gray-100 flex p-2 w-full gap-2 border-b border-slate-800'>
+              <input class='border w-full p-2 border-slate-500 rounded' type="text" x-model='text'>
               <button
                 @click="v1=Number(text);baseValue=v1/(50+10);
                 listP=[];listN=[];
@@ -39,7 +39,7 @@
                 class="bg-blue-700 text-white p-2 w-40 hover:bg-blue-500 border rounded"
               >Calculate</button>
             </div>
-            <div x-show='listP.length>0 && listN.length>0' class='my-2 bg-gray-100 border border-2 border-slate-500 p-2'>
+            <div x-show='listP.length>0 && listN.length>0' class='my-2 bg-gray-100 border border-1 border-slate-500 p-2 rounded'>
               <div class='m-2 bg-teal-500 text-white p-2 font-bold text-center rounded'>Base Value: <span x-text='baseValue'></span></div>
               <div class='grid gap-2 grid-cols-2 p-1'>
                 <div class="bg-teal-500 text-white text-center p-2 rounded">
@@ -54,14 +54,14 @@
                 </div>          
               </div>
           </div>
-          <div x-show='listP.length>0 && listN.length>0' class='my-2 bg-gray-100 border border-2 border-slate-500 p-2'>
+          <div x-show='listP.length>0 && listN.length>0' class='my-2 bg-gray-100 border border-1 border-slate-500 p-2 rounded'>
           <div class='m-2 bg-emerald-500 text-white p-2 font-bold text-center rounded'>Base Value: <span x-text='baseValue*(50+10)'></span></div>
           <div class='grid gap-2 grid-cols-2 p-1'>
-            <div class="bg-emerald-500 text-white text-center p-2">
+            <div class="bg-emerald-500 text-white text-center p-2 rounded">
               <template x-for='record in listP'>
                 <p x-text='(record*(50+10)).toFixed(10)'></p>
               </template>
-            </div><div class="bg-emerald-500 text-white text-centrr p-2">
+            </div><div class="bg-emerald-500 text-white text-center p-2 rounded">
               <template x-for='record in listN'>
                 <p x-text='(record*(50+10)).toFixed(10)'></p>
               </template>
@@ -71,7 +71,7 @@
         </div>
       </div>
       <div x-show='tabIndx==1'>
-        <div x-data="{aText:'43872',bText:'1296',aValue:0.0,bValue:0.0,listP:[],listN:[]}">
+        <div x-data="{aText:'',bText:'',aValue:0.0,bValue:0.0,listP:[],listN:[]}">
           <div class='my-2 px-2 bg-gray-100 rounded'>
             <input class='px-2 py-1 border border-slate-500 my-2 w-full rounded' x-model='aText' type="text">
             <input class='px-2 py-1 border border-slate-500 my-2 w-full rounded' x-model='bText' type="text">
