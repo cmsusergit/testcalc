@@ -23,7 +23,21 @@
         <div x-data="{text:'',baseValue:'',offsetValue:'',listP:[],listN:[]}">        
             <div class='bg-gray-100 flex p-2 w-full gap-2 border-b border-slate-800'>
               <input class='border w-full p-2 border-slate-500 rounded' type="text" x-model='text'>
-              <button
+              
+              <button  @click="if(!text)return;listP=[];listN=[];
+            aValue=Number(text);bValue=aValue/10.0;
+            let v1=aValue+bValue;            
+            let v2=aValue-bValue;
+            listP.push((v1+aValue)/2.);            
+            listN.push((v2+aValue)/2.);
+            for(let indx=1;indx<7;indx++){
+              v1=aValue+listP[indx-1];
+              v2=aValue+listN[indx-1];
+              listP.push(v1/2.);            
+              listN.push(v2/2.);
+            }"
+            class='mb-2 bg-blue-700 text-white p-2 w-full hover:bg-blue-500 rounded'>Calculate</button>
+              <!-- <button
                 @click="v1=Number(text);baseValue=v1/(50+10);
                 listP=[];listN=[];
                 let temp1=baseValue;
@@ -37,7 +51,7 @@
                 }
                 "
                 class="bg-blue-700 text-white p-2 w-40 hover:bg-blue-500 border rounded"
-              >Calculate</button>
+              >Calculate</button> -->
             </div>
             <div x-show='listP.length>0 && listN.length>0' class='my-2 bg-gray-100 border border-1 border-slate-500 p-2 rounded'>
               <div class='m-2 bg-teal-500 text-white p-2 font-bold text-center rounded'>Base Value: <span x-text='baseValue'></span></div>
